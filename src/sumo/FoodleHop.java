@@ -1,13 +1,23 @@
 package sumo;
 
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
-public class FoodleHop {
+import javax.swing.JFrame;
+import javax.swing.Timer;
+
+public class FoodleHop implements ActionListener{
 	JFrame frame;
+	
 	GamePanel panel = new GamePanel();
 	
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 800;
+	
+	ArrayList<Platform> platforms = new ArrayList<Platform>();
 	
 	FoodleHop(){
 		frame = new JFrame();
@@ -23,6 +33,13 @@ public class FoodleHop {
 	public static void main(String[] args) {
 		FoodleHop doodle = new FoodleHop();
 		doodle.setup();
+	}
+	@Override
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
