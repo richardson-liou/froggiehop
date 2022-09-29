@@ -17,25 +17,22 @@ public class FoodleHop implements ActionListener{
 	public static final int WIDTH = 400;
 	public static final int HEIGHT = 800;
 	
-	ArrayList<Platform> platforms = new ArrayList<Platform>();
-	
 	FoodleHop(){
 		frame = new JFrame();
-		
 	}
 	public void setup() {
 		frame.add(panel);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addKeyListener(panel);
 	}
 	
 	public static void main(String[] args) {
 		FoodleHop doodle = new FoodleHop();
 		doodle.setup();
 	}
-	@Override
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
