@@ -3,13 +3,14 @@ package sumo;
 import java.awt.Rectangle;
 
 public class GameObject {
-	 int x;
-	 int y;
+	float x;
+	 float y;
 	 int width;
 	 int height;
+	 int speed = 0;
 	 Rectangle collisionBox;
 	 
-	 GameObject(int x, int y, int width, int height){
+	 GameObject(float x, float y, int width, int height){
 		 this.x = x;
 		 this.y = y;
 		 this.width = width;
@@ -18,6 +19,6 @@ public class GameObject {
 	 }
 	 
 	 public void update() {
-		 collisionBox.setBounds(x,y,width,height);
+		 collisionBox.setBounds((int)x,(int)y,width,height);
 	 }
 }

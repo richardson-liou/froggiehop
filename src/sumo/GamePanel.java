@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	Font titleFont;
     Font subTitle;
     Timer timer;
-    Player player1 = new Player(200, 750, 70, 70);
+    Player player1 = new Player(200, 700, 70, 70);
     
     GamePanel(){
     	titleFont = new Font("ComicSansMS-BOLD", Font.PLAIN, 30);
@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		    drawMenu(g);
 		}else if(currentState == GAME){
 		    drawGame(g);
+		    
 		}
 		}
 	
@@ -76,7 +77,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		g.drawString("This is the game", 120, 600);
 		
 		player1.draw(g);
-		System.out.println("Drew Game");
+		//System.out.println("Drew Game");
 	}
 
 	@Override
@@ -87,7 +88,8 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		}else if(currentState == GAME){
 		    updateGame();
 		}
-		System.out.println("Action");
+		player1.update();
+		//System.out.println("Action");
 		repaint();
 	}
 
@@ -99,13 +101,35 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			}
 			System.out.println("ENTER");
 		}
+			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				if(player1.x<FoodleHop.WIDTH-50) {
+					player1.right = true;
+				}
+			}
+			
+			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+				if(player1.x>0) {
+			    player1.left = true;
+				}
+			}
+			
+			if (e.getKeyCode()== KeyEvent.VK_SPACE) {
+				if(player1.canJump == true) {
+					player1.jump();   
+				}
+			}
+		}
 		
-	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getKeyCode() == KeyEvent.VK_LEFT){
+			player1.left = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+			player1.right = false;
+		}
 	}
 
 	@Override

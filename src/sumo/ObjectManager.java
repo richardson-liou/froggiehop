@@ -1,8 +1,11 @@
 package sumo;
 
 public class ObjectManager {
+	Player player;
 	
-	ObjectManager(){
-		
+	ObjectManager(Player p){
+		player = p;
 	}
+	
+	
 }
