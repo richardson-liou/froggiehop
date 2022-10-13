@@ -10,7 +10,7 @@ public class Platform {
 	private int width;
 	private int height;
 	
-	private Rectangle platform = new Rectangle();
+	Rectangle cbox = new Rectangle();
 	
 	public Platform(int x, int y, int w, int h){
 		this.x = x;
@@ -18,21 +18,19 @@ public class Platform {
 		this.width = w;
 		this.height = h;
 		
-		platform.setBounds(x, y, width, height);
+		cbox.setBounds(x, y, width, height);
 	}
 	
 	public void update(){
-		platform.setBounds(x, y, width, height);
+		cbox.setBounds(x, y, width, height);
 	}
 	
 	public void draw(Graphics g){
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		g.fillRect(x, y, width, height);
 	}
 	
-	public Rectangle getBox(){
-		return platform;
-	}
+	
 	
 }
 

@@ -21,7 +21,9 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	Font titleFont;
     Font subTitle;
     Timer timer;
-    Player player1 = new Player(200, 700, 70, 70);
+    Player player1 = new Player(200, 600, 50, 50);
+    Platform main = new Platform(0,740,300,20);
+    ObjectManager objman = new ObjectManager(player1);
     
     GamePanel(){
     	titleFont = new Font("ComicSansMS-BOLD", Font.PLAIN, 30);
@@ -54,6 +56,10 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	}
 	
 	public void updateGame() {
+		objman.update();
+		if (player1.y>800) {
+			currentState = MENU;
+		}
 		
 	}
 	
@@ -69,14 +75,16 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	}
 	
 	public void drawGame(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, FoodleHop.WIDTH, FoodleHop.HEIGHT);
 		
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
 		g.drawString("This is the game", 120, 600);
 		
-		player1.draw(g);
+		
+		objman.platforms.add(main);
+		objman.draw(g);
 		//System.out.println("Drew Game");
 	}
 
@@ -88,7 +96,6 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		}else if(currentState == GAME){
 		    updateGame();
 		}
-		player1.update();
 		//System.out.println("Action");
 		repaint();
 	}
@@ -108,7 +115,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			}
 			
 			if (e.getKeyCode()==KeyEvent.VK_LEFT) {
-				if(player1.x>0) {
+				if(player1.x>0) { 
 			    player1.left = true;
 				}
 			}

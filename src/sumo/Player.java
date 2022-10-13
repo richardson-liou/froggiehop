@@ -8,28 +8,28 @@ public class Player extends GameObject{
 	public boolean left = false;
 	public boolean right = false;
 	
-	private float xVelocity = 0;
+	int xVelocity = 0;
 	
-	private float gravity = 0.001f;
-	private float yVelocity = 0;
-	private int jumpPower = 20;
+	float gravity = 1f;
+	float yVelocity = 0;
+	int jumpPower = 22;
 	
 
 	boolean canJump = false;
 	
 	public Player(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed = 10;
+		speed = 7;
 		collisionBox.setBounds(x, y, width, height);
 	}
 	
 	public void update() {
 		if(left){
-			xVelocity = -speed;
-			System.out.println("LEFTING");
+			x -=speed;
+			
 		}
 		if(right){
-			xVelocity = speed;
+			x += speed;
 			
 		}
 		
@@ -38,12 +38,14 @@ public class Player extends GameObject{
 		x += xVelocity;
 		xVelocity *= 0.999;
 		
+		super.update();
 	}
 	
 	public void jump(){
 		if(canJump){
 			yVelocity -= jumpPower;
 			canJump = false;
+			gravity = 1;
 		}
 	}
 
