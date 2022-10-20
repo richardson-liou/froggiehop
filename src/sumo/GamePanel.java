@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	Font titleFont;
     Font subTitle;
     Timer timer;
+    Timer platSpawn;
     Player player1 = new Player(200, 600, 50, 50);
     Platform main = new Platform(0,740,300,20);
     ObjectManager objman = new ObjectManager(player1);
@@ -29,8 +30,10 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
     	titleFont = new Font("ComicSansMS-BOLD", Font.PLAIN, 30);
     	subTitle = new Font("ComicSansMS", Font.PLAIN, 20);
     	timer = new Timer(1000/60, this);
+    	platSpawn = new Timer(10000,objman);
     	
     	timer.start();
+    	//platSpawn.start();
     	//Font [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
     	
     	//for(int i = 0; i<fonts.length; i++) {
@@ -83,8 +86,9 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		g.drawString("This is the game", 120, 600);
 		
 		
-		objman.platforms.add(main);
+		
 		objman.draw(g);
+		
 		//System.out.println("Drew Game");
 	}
 
@@ -105,6 +109,8 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 			if(currentState == MENU) {
 				currentState = GAME;
+				objman.platforms.add(main);
+				objman.platformSpawn();
 			}
 			System.out.println("ENTER");
 		}

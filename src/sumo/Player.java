@@ -16,6 +16,7 @@ public class Player extends GameObject{
 	
 
 	boolean canJump = false;
+	boolean isOnGround = true;
 	
 	public Player(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -32,8 +33,10 @@ public class Player extends GameObject{
 			x += speed;
 			
 		}
-		
-		yVelocity += gravity;
+		if (isOnGround != true) {
+			yVelocity += gravity;
+		}
+
 		y += yVelocity;
 		x += xVelocity;
 		xVelocity *= 0.999;
