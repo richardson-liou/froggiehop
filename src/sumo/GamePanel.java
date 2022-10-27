@@ -110,7 +110,9 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			if(currentState == MENU) {
 				currentState = GAME;
 				objman.platforms.add(main);
+				for(int i = 0; i<5; i++) {
 				objman.platformSpawn();
+				}
 			}
 			System.out.println("ENTER");
 		}
@@ -129,7 +131,9 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			if (e.getKeyCode()== KeyEvent.VK_SPACE) {
 				if(player1.canJump == true) {
 					player1.jump();   
+					System.out.println(player1.y);
 				}
+				System.out.println("Player y " +player1.y);
 			}
 		}
 		

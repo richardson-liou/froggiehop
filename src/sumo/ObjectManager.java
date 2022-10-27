@@ -36,23 +36,33 @@ public class ObjectManager implements ActionListener{
 	}
 	
 	public void platformSpawn() {
+
 		Random rand = new Random();
-		for(int i = 0; i<5; i++) {
 		int randomx = rand.nextInt(400);
-		int randomy = rand.nextInt(700);
+		int randomy = 0;
+		int lastPlat = platforms.size()-1;
+
+				if(lastPlat-1>=0) {
+					Platform p = platforms.get(lastPlat-1);
+					randomy =(int) (rand.nextInt(100)+p.y);
+					if(randomy <= p.y + 30 || randomy >=p.y -30) {
+						randomy -=50;
+					}
+				}
+				else {
+					Platform p = platforms.get(lastPlat);
+					randomy = rand.nextInt((int) p.y);
+				}
+				 
+			Platform plat = new Platform(randomx,randomy,100,20);
+			platforms.add(plat);
 		
-		Platform plat = new Platform(randomx,randomy,100,20);
-		platforms.add(plat);
 		
 		}
 		
-		for(int k = 0; k<platforms.size(); k++) {
-			Platform p = platforms.get(k);
-			//if(p.x >=rand1 +30 &&p.x<= rand1-30 && p.y >=rand2+60 && p.y <= rand2-60) {
-				
-			}
+		
 		//}
-		}
+		
 
 	
 	public void checkCollision() {
@@ -64,7 +74,7 @@ public class ObjectManager implements ActionListener{
 				player.canJump = true;
 				if(player.y < p.y && player.y>p.y-70) {
 				isOnGround = true;
-				System.out.println("Collided");
+				//System.out.println("Collided");
 				}
 			}
 			else {
