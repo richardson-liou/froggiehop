@@ -10,10 +10,16 @@ import java.util.Random;
 public class ObjectManager implements ActionListener{
 	Player player;
 	List<Platform> platforms = new ArrayList();
+	int score = 0;
 	
 	ObjectManager(Player p){
 		player = p;
 	}
+	
+	public int getScore() {
+		return score;
+	}
+	
 	
 	public void addPlatform(Platform p) {
 		platforms.add(p);
@@ -22,9 +28,15 @@ public class ObjectManager implements ActionListener{
 	public void update() {
 		for(Platform p : platforms){
 			p.update();
+			if(p.isActive = true) {
+				score+=1;
+				p.isActive = false;
+			}
 		}
 		player.update();
 		checkCollision();
+		
+		
 	}
 	public void draw(Graphics g) {
 		player.draw(g);
@@ -43,11 +55,11 @@ public class ObjectManager implements ActionListener{
 		int lastPlat = platforms.size()-1;
 
 				if(lastPlat-1>=0) {
-					Platform p = platforms.get(lastPlat-1);
-					randomy =(int) (rand.nextInt(100)+p.y);
-					if(randomy <= p.y + 30 || randomy >=p.y -30) {
-						randomy -=50;
-					}
+					Platform p = platforms.get(lastPlat);
+					randomy =(int) (rand.nextInt(150)+p.y);
+					//if(randomy <= p.y + 30 || randomy >=p.y -30) {
+						//andomy -=50;
+					//}
 				}
 				else {
 					Platform p = platforms.get(lastPlat);
@@ -67,19 +79,23 @@ public class ObjectManager implements ActionListener{
 	
 	public void checkCollision() {
 		boolean isOnGround = false;
+		
 		for(int i = 0; i<platforms.size(); i++) {
 			Platform p = platforms.get(i);	
 			if(player.collisionBox.intersects(p.collisionBox)){
-				player.yVelocity = 0; 
-				player.canJump = true;
-				if(player.y < p.y && player.y>p.y-70) {
-				isOnGround = true;
-				//System.out.println("Collided");
+				
+				//player.canJump = true;
+				//if(player.y < p.y -30) {
+					//player.yVelocity = 0; 
+				//isOnGround = true;
+				
+				handleCollision(p);
+				
 				}
-			}
-			else {
+			//}
+			//else {
 				           
-			}
+			//}
 	}
 		player.isOnGround = isOnGround;
 		
@@ -92,6 +108,13 @@ public class ObjectManager implements ActionListener{
 		}
 	
 }
+	private void handleCollision(Platform p){
+		if(player.getYVelocity() >= 0 && player.getY() + player.getHeight() < p.getY() + 25){
+			player.setYLimit(p.getY() - player.getHeight());
+		}else{
+			player.setYLimit(500);
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

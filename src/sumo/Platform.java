@@ -5,10 +5,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Platform extends GameObject {
-	
+	boolean isActive = false;
 	
 	public Platform(int x, int y, int w, int h){
 		super(x,y,w,h);
+		
 		
 	}
 	
@@ -21,6 +22,13 @@ public class Platform extends GameObject {
 		g.fillRect((int)x, (int)y, width, height);
 	}
 	
+	public float getX(){
+		return x;
+	}
+	
+	public float getY(){
+		return y;
+	}
 	
 	
 }

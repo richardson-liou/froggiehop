@@ -64,6 +64,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			currentState = MENU;
 		}
 		
+		
 	}
 	
 	public void drawMenu(Graphics g) {
@@ -78,13 +79,14 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	}
 	
 	public void drawGame(Graphics g) {
+		int score = objman.getScore();
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, FoodleHop.WIDTH, FoodleHop.HEIGHT);
 		
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("This is the game", 120, 600);
-		
+		g.drawString("This is the game", 70, 600);
+		g.drawString("Score: "+ score, 120,100);
 		
 		
 		objman.draw(g);
