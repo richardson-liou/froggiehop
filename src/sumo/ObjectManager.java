@@ -28,13 +28,10 @@ public class ObjectManager implements ActionListener{
 	public void update() {
 		for(Platform p : platforms){
 			p.update();
-			if(p.isActive = true) {
-				score+=1;
-				p.isActive = false;
-			}
 		}
 		player.update();
 		checkCollision();
+		addScore();
 		
 		
 	}
@@ -56,14 +53,12 @@ public class ObjectManager implements ActionListener{
 
 				if(lastPlat-1>=0) {
 					Platform p = platforms.get(lastPlat);
-					randomy =(int) (rand.nextInt(150)+p.y);
-					//if(randomy <= p.y + 30 || randomy >=p.y -30) {
-						//andomy -=50;
-					//}
+					randomy =(int) p.y -(rand.nextInt(150)+30);
+
 				}
 				else {
 					Platform p = platforms.get(lastPlat);
-					randomy = rand.nextInt((int) p.y);
+					randomy = 600;
 				}
 				 
 			Platform plat = new Platform(randomx,randomy,100,20);
@@ -79,42 +74,39 @@ public class ObjectManager implements ActionListener{
 	
 	public void checkCollision() {
 		boolean isOnGround = false;
-		
 		for(int i = 0; i<platforms.size(); i++) {
 			Platform p = platforms.get(i);	
-			if(player.collisionBox.intersects(p.collisionBox)){
-				
-				//player.canJump = true;
-				//if(player.y < p.y -30) {
-					//player.yVelocity = 0; 
-				//isOnGround = true;
-				
-				handleCollision(p);
-				
+			if(player.collisionBox.intersects(p.collisionBox)&&player.yVelocity >=0){
+				player.canJump = true;
+
+				if(player.y < p.y -20) {
+					player.yVelocity = 0; 
+
+				isOnGround = true;
+
 				}
-			//}
-			//else {
-				           
-			//}
-	}
+	}	
 		player.isOnGround = isOnGround;
-		
-		
 		if(player.x > FoodleHop.WIDTH) {
 			player.x = 0;
 		}
 		else if (player.x<0) {
 			player.x = FoodleHop.WIDTH;
 		}
-	
+		
 }
-	private void handleCollision(Platform p){
-		if(player.getYVelocity() >= 0 && player.getY() + player.getHeight() < p.getY() + 25){
-			player.setYLimit(p.getY() - player.getHeight());
-		}else{
-			player.setYLimit(500);
+	}
+	
+	public void addScore() {
+		float maxY = 0;
+		if(player.y >maxY) {
+			maxY = player.y;
+			if(player.yVelocity <0&& player.y >=maxY) {
+				score+=1;
+		}
 		}
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

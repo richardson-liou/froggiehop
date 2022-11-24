@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
     Timer timer;
     Timer platSpawn;
     Player player1 = new Player(200, 600, 50, 50);
-    Platform main = new Platform(0,740,300,20);
+    Platform main = new Platform(0,740,500,20);
     ObjectManager objman = new ObjectManager(player1);
     
     GamePanel(){

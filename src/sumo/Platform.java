@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Platform extends GameObject {
-	boolean isActive = false;
+
 	
 	public Platform(int x, int y, int w, int h){
 		super(x,y,w,h);

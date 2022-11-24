@@ -13,7 +13,6 @@ public class Player extends GameObject{
 	float gravity = 1f;
 	float yVelocity = 0;
 	int jumpPower = 22;
-	float yLimit = 0;
 	
 
 	boolean canJump = false;
@@ -42,11 +41,6 @@ public class Player extends GameObject{
 		x += xVelocity;
 		xVelocity *= 0.999;
 		
-		if(y >= yLimit + 1){
-			y = yLimit + 1;
-			yVelocity = 0;
-			canJump = true;
-		}
 		
 		super.update();
 	}
@@ -87,9 +81,6 @@ public class Player extends GameObject{
 		return y;
 	}
 	
-	public void setYLimit(float f){
-		yLimit = f;
-	}
 	
 	public float getYVelocity(){
 		return yVelocity;
