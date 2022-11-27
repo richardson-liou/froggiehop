@@ -60,10 +60,6 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	
 	public void updateGame() {
 		objman.update();
-		if (player1.y>800) {
-			currentState = MENU;
-		}
-		
 		
 	}
 	
@@ -112,7 +108,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			if(currentState == MENU) {
 				currentState = GAME;
 				objman.platforms.add(main);
-				for(int i = 0; i<5; i++) {
+				for(int i = 0; i<10; i++) {
 				objman.platformSpawn();
 				}
 			}

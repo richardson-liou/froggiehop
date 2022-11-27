@@ -11,6 +11,8 @@ public class ObjectManager implements ActionListener{
 	Player player;
 	List<Platform> platforms = new ArrayList();
 	int score = 0;
+	float maxY = 800;
+	int size = 100;
 	
 	ObjectManager(Player p){
 		player = p;
@@ -53,7 +55,7 @@ public class ObjectManager implements ActionListener{
 
 				if(lastPlat-1>=0) {
 					Platform p = platforms.get(lastPlat);
-					randomy =(int) p.y -(rand.nextInt(150)+30);
+					randomy =(int) p.y -(rand.nextInt(170)+30);
 
 				}
 				else {
@@ -61,7 +63,7 @@ public class ObjectManager implements ActionListener{
 					randomy = 600;
 				}
 				 
-			Platform plat = new Platform(randomx,randomy,100,20);
+			Platform plat = new Platform(randomx,randomy,size,20);
 			platforms.add(plat);
 		
 		
@@ -94,16 +96,31 @@ public class ObjectManager implements ActionListener{
 			player.x = FoodleHop.WIDTH;
 		}
 		
+		else if (player.y<0) {
+			player.y = 790;
+			for (int k = 1; k< platforms.size();k++) {
+				Platform plat = platforms.get(k);
+				platforms.remove(plat);
+			}
+			size -=10;
+			for(int o = 0; o<10; o++) {
+				platformSpawn();
+				}
+		}
+		
 }
 	}
 	
 	public void addScore() {
-		float maxY = 0;
-		if(player.y >maxY) {
-			maxY = player.y;
-			if(player.yVelocity <0&& player.y >=maxY) {
-				score+=1;
+		if(player.getY() <maxY) {
+			maxY = player.getY();
+			//System.out.println(maxY+ "this is"+ player.getY());
 		}
+		if(player.yVelocity <0&& player.getY() <=maxY) {
+			score+=1;
+		}
+		else if(player.getY()>maxY) {
+			//System.out.println("no score");
 		}
 	}
 
