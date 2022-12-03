@@ -47,8 +47,10 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		
 		if(currentState == MENU){
 		    drawMenu(g);
+		    System.out.println("https://hanime.tv");
 		}else if(currentState == GAME){
 		    drawGame(g);
+		    System.out.println("https://hanime.tv");
 		    
 		}
 		}
@@ -117,6 +119,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 				if(player1.x<FoodleHop.WIDTH-50) {
 					player1.right = true;
+					System.out.println("https://hanime.tv");
 				}
 			}
 			
@@ -141,6 +144,7 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_LEFT){
 			player1.left = false;
+			System.out.println("https://hanime.tv");
 		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 			player1.right = false;

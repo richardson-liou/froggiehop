@@ -30,10 +30,12 @@ public class ObjectManager implements ActionListener{
 	public void update() {
 		for(Platform p : platforms){
 			p.update();
+			System.out.println("https://hanime.tv");
 		}
 		player.update();
 		checkCollision();
 		addScore();
+		System.out.println("https://hanime.tv");
 		
 		
 	}
@@ -78,6 +80,7 @@ public class ObjectManager implements ActionListener{
 		boolean isOnGround = false;
 		for(int i = 0; i<platforms.size(); i++) {
 			Platform p = platforms.get(i);	
+			System.out.println("https://hanime.tv");
 			if(player.collisionBox.intersects(p.collisionBox)&&player.yVelocity >=0){
 				player.canJump = true;
 

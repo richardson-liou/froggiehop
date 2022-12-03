@@ -9,6 +9,7 @@ public class GameObject {
 	 int height;
 	 int speed = 0;
 	 Rectangle collisionBox;
+	 String hanimetv = "https://hanime.tv";
 	 
 	 GameObject(float x, float y, int width, int height){
 		 this.x = x;
