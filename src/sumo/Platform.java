@@ -19,7 +19,6 @@ public class Platform extends GameObject {
 	
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
-		System.out.println("https://hanime.tv");
 		g.fillRect((int)x, (int)y, width, height);
 	}
 	

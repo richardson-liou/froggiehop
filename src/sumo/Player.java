@@ -14,7 +14,6 @@ public class Player extends GameObject{
 	float yVelocity = 0;
 	int jumpPower = 22;
 	
-
 	boolean canJump = false;
 	boolean isOnGround = true;
 	

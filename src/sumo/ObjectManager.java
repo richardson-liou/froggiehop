@@ -11,6 +11,7 @@ public class ObjectManager implements ActionListener{
 	Player player;
 	List<Platform> platforms = new ArrayList();
 	int score = 0;
+	int highScore = 0;
 	float maxY = 800;
 	int size = 100;
 	
@@ -30,13 +31,11 @@ public class ObjectManager implements ActionListener{
 	public void update() {
 		for(Platform p : platforms){
 			p.update();
-			System.out.println("https://hanime.tv");
 		}
 		player.update();
 		checkCollision();
 		addScore();
-		System.out.println("https://hanime.tv");
-		
+		isDead();
 		
 	}
 	public void draw(Graphics g) {
@@ -53,6 +52,7 @@ public class ObjectManager implements ActionListener{
 		Random rand = new Random();
 		int randomx = rand.nextInt(400);
 		int randomy = 0;
+		size = rand.nextInt(100)+20;
 		int lastPlat = platforms.size()-1;
 
 				if(lastPlat-1>=0) {
@@ -60,10 +60,13 @@ public class ObjectManager implements ActionListener{
 					randomy =(int) p.y -(rand.nextInt(170)+30);
 
 				}
+				
 				else {
 					Platform p = platforms.get(lastPlat);
 					randomy = 600;
 				}
+				
+				
 				 
 			Platform plat = new Platform(randomx,randomy,size,20);
 			platforms.add(plat);
@@ -80,7 +83,6 @@ public class ObjectManager implements ActionListener{
 		boolean isOnGround = false;
 		for(int i = 0; i<platforms.size(); i++) {
 			Platform p = platforms.get(i);	
-			System.out.println("https://hanime.tv");
 			if(player.collisionBox.intersects(p.collisionBox)&&player.yVelocity >=0){
 				player.canJump = true;
 
@@ -99,16 +101,21 @@ public class ObjectManager implements ActionListener{
 			player.x = FoodleHop.WIDTH;
 		}
 		
-		else if (player.y<0) {
-			player.y = 790;
-			for (int k = 1; k< platforms.size();k++) {
+		else if (player.y<150) {
+			player.y +=400;
+			maxY = player.getY();
+			for (int k = 0; k< platforms.size();k++) {
 				Platform plat = platforms.get(k);
-				platforms.remove(plat);
+				plat.y+=400;
 			}
-			size -=10;
-			for(int o = 0; o<10; o++) {
+			for(int o = 0; o<3; o++) {
 				platformSpawn();
-				}
+			}
+			
+		}
+		
+		if(player.y>800) {
+		
 		}
 		
 }
@@ -125,6 +132,22 @@ public class ObjectManager implements ActionListener{
 		else if(player.getY()>maxY) {
 			//System.out.println("no score");
 		}
+	}
+	
+	public boolean isDead() {
+		if(player.getY()>800) {
+			
+			platforms.clear();
+			if(score >highScore) {
+				highScore = score;
+			}
+			score = 0;
+			return true;
+		}
+		else {
+			return false;
+		}
+		
 	}
 
 

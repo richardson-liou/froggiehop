@@ -47,11 +47,8 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		
 		if(currentState == MENU){
 		    drawMenu(g);
-		    System.out.println("https://hanime.tv");
 		}else if(currentState == GAME){
 		    drawGame(g);
-		    System.out.println("https://hanime.tv");
-		    
 		}
 		}
 	
@@ -62,14 +59,20 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	
 	public void updateGame() {
 		objman.update();
-		
+		if(objman.isDead()) {
+			currentState = MENU;
+		}
 	}
 	
 	public void drawMenu(Graphics g) {
 		
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("Doodle hop", 120, 600);
+		g.drawString("Doodle hop", 120, 500);
+		
+		g.setFont(subTitle);
+		g.setColor(Color.BLACK);
+		g.drawString("Your high score is "+ objman.highScore, 110, 600);
 		
 		g.setFont(subTitle);
 		g.setColor(Color.BLACK);
@@ -109,17 +112,20 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 			if(currentState == MENU) {
 				currentState = GAME;
+				player1.y = 700;
+				player1.yVelocity =0;
+				main.y = 740;
 				objman.platforms.add(main);
 				for(int i = 0; i<10; i++) {
 				objman.platformSpawn();
 				}
 			}
+			
 			System.out.println("ENTER");
 		}
 			if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 				if(player1.x<FoodleHop.WIDTH-50) {
 					player1.right = true;
-					System.out.println("https://hanime.tv");
 				}
 			}
 			
@@ -144,7 +150,6 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_LEFT){
 			player1.left = false;
-			System.out.println("https://hanime.tv");
 		}
 		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
 			player1.right = false;
