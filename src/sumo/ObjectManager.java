@@ -14,6 +14,8 @@ public class ObjectManager implements ActionListener{
 	int highScore = 0;
 	float maxY = 800;
 	int size = 100;
+	boolean isTransitioning;
+	int transitionDistance;
 	
 	ObjectManager(Player p){
 		player = p;
@@ -36,7 +38,22 @@ public class ObjectManager implements ActionListener{
 		checkCollision();
 		addScore();
 		isDead();
-		
+		transition();
+	}
+	
+	public void transition() {
+		if(isTransitioning && transitionDistance>0) {
+			player.y +=8;
+			maxY = player.getY();
+			for (int k = 0; k< platforms.size();k++) {
+				Platform plat = platforms.get(k);
+				plat.y+=8;
+			}
+			transitionDistance -=8;
+		}
+		else if(transitionDistance <=0) {
+			isTransitioning = false;
+		}
 	}
 	public void draw(Graphics g) {
 		player.draw(g);
@@ -94,6 +111,8 @@ public class ObjectManager implements ActionListener{
 				}
 	}	
 		player.isOnGround = isOnGround;
+		}
+		
 		if(player.x > FoodleHop.WIDTH) {
 			player.x = 0;
 		}
@@ -101,24 +120,29 @@ public class ObjectManager implements ActionListener{
 			player.x = FoodleHop.WIDTH;
 		}
 		
-		else if (player.y<150) {
-			player.y +=400;
-			maxY = player.getY();
-			for (int k = 0; k< platforms.size();k++) {
-				Platform plat = platforms.get(k);
-				plat.y+=400;
-			}
+		else if (player.y<100&& isTransitioning == false) {
+			isTransitioning = true;
+			transitionDistance =250;
 			for(int o = 0; o<3; o++) {
 				platformSpawn();
 			}
-			
 		}
 		
-		if(player.y>800) {
 		
+
+	}
+	
+	public void moveToNextScreen() {
+		player.y +=400;
+		maxY = player.getY();
+		for (int k = 0; k< platforms.size();k++) {
+			Platform plat = platforms.get(k);
+			plat.y+=400;
+		}
+		for(int o = 0; o<3; o++) {
+			platformSpawn();
 		}
 		
-}
 	}
 	
 	public void addScore() {

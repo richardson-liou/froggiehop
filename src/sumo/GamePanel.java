@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -26,6 +28,10 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
     Platform main = new Platform(0,740,500,20);
     ObjectManager objman = new ObjectManager(player1);
     
+    public static BufferedImage image;
+   	public static boolean needImage = true;
+   	public static boolean gotImage = false;
+    
     GamePanel(){
     	titleFont = new Font("ComicSansMS-BOLD", Font.PLAIN, 30);
     	subTitle = new Font("ComicSansMS", Font.PLAIN, 20);
@@ -39,6 +45,9 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
     	//for(int i = 0; i<fonts.length; i++) {
     		//System.out.println(fonts[i].getFontName());
     	//}
+    	if (needImage) {
+		    loadImage ("sky.jpeg");
+		}
 
     }
     
@@ -81,8 +90,14 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	
 	public void drawGame(Graphics g) {
 		int score = objman.getScore();
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, FoodleHop.WIDTH, FoodleHop.HEIGHT);
+		if (gotImage) {
+			g.drawImage(image, 0, 0, FoodleHop.WIDTH, FoodleHop.HEIGHT, null);
+		} 
+		else {
+			g.setColor(Color.lightGray);
+			g.fillRect(0, 0, FoodleHop.WIDTH, FoodleHop.HEIGHT);
+		}
+		
 		
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
@@ -160,6 +175,18 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
 	}
 	
 	

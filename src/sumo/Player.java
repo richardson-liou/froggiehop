@@ -1,12 +1,20 @@
 package sumo;
 
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+import javax.swing.JApplet;
 
 public class Player extends GameObject{
 	public boolean left = false;
 	public boolean right = false;
+	public static BufferedImage image;
+	boolean needImage = true;
+	boolean gotImage = false;
 	
 	int xVelocity = 0;
 	
@@ -21,6 +29,9 @@ public class Player extends GameObject{
 		super(x, y, width, height);
 		speed = 7;
 		collisionBox.setBounds(x, y, width, height);
+		if (needImage) {
+		    loadImage ("frog-.png");
+		}
 	}
 	
 	public void update() {
@@ -49,6 +60,7 @@ public class Player extends GameObject{
 			yVelocity -= jumpPower;
 			canJump = false;
 			gravity = 1;
+			playSound("jump.wav");
 		}
 		
 	}
@@ -56,8 +68,13 @@ public class Player extends GameObject{
 	
 	
 	void draw(Graphics g) {
+		if (gotImage) {
+			g.drawImage(image, (int)x, (int)y, 50, 50, null);
+		} else {
 			g.setColor(Color.GREEN);
 			g.fillRect((int)x, (int)y, width, height);
+		}
+			
 	}
 	
 	public void right() {
@@ -87,6 +104,22 @@ public class Player extends GameObject{
 	
 	public float getHeight() {
 		return height;
+	}
+	void loadImage(String imageFile) {
+	    if (needImage) {
+	        try {
+	            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+		    gotImage = true;
+	        } catch (Exception e) {
+	            
+	        }
+	        needImage = false;
+	    }
+	}
+	
+	private void playSound(String fileName) {
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+		sound.play();
 	}
 	
 }
