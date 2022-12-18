@@ -1,11 +1,14 @@
 package sumo;
 
+import java.applet.AudioClip;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.JApplet;
 
 public class ObjectManager implements ActionListener{
 	Player player;
@@ -113,7 +116,7 @@ public class ObjectManager implements ActionListener{
 		player.isOnGround = isOnGround;
 		}
 		
-		if(player.x > FoodleHop.WIDTH) {
+		if(player.x > 390) {
 			player.x = 0;
 		}
 		else if (player.x<0) {
@@ -156,16 +159,22 @@ public class ObjectManager implements ActionListener{
 		else if(player.getY()>maxY) {
 			//System.out.println("no score");
 		}
+		
+		if(score >1000) {
+			transitionDistance = 400;
+			
+		}
 	}
 	
 	public boolean isDead() {
 		if(player.getY()>800) {
-			
+			playSound("screa,.wav");
 			platforms.clear();
 			if(score >highScore) {
 				highScore = score;
 			}
 			score = 0;
+			
 			return true;
 		}
 		else {
@@ -180,5 +189,9 @@ public class ObjectManager implements ActionListener{
 		// TODO Auto-generated method stub
 		//platformSpawn();
 		
+	}
+	private void playSound(String fileName) {
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+		sound.play();
 	}
 }

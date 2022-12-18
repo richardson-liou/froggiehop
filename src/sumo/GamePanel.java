@@ -101,10 +101,11 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("This is the game", 70, 600);
 		g.drawString("Score: "+ score, 120,100);
-		
-		
+		if(objman.score>1000)
+		{
+			g.drawString("GO FASTER" , 120,200);
+		}
 		objman.draw(g);
 		
 		//System.out.println("Drew Game");
