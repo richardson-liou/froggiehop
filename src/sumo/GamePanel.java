@@ -77,14 +77,23 @@ public class GamePanel extends JPanel implements ActionListener,KeyListener{
 		
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
-		g.drawString("Doodle hop", 120, 500);
+		g.drawString("Froggie hop", 120, 200);
+		
+		g.setFont(subTitle);
+		g.setColor(Color.BLUE);
+		g.drawString("Space to Jump", 120, 350);
+		
+		g.setFont(subTitle);
+		g.setColor(Color.BLUE);
+		g.drawString("Left and Right arrows to move", 60, 400);
 		
 		g.setFont(subTitle);
 		g.setColor(Color.BLACK);
 		g.drawString("Your high score is "+ objman.highScore, 110, 600);
 		
+		
 		g.setFont(subTitle);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.RED);
 		g.drawString("Press Enter to start", 110, 700);
 	}
 	

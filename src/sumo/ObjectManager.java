@@ -19,6 +19,7 @@ public class ObjectManager implements ActionListener{
 	int size = 100;
 	boolean isTransitioning;
 	int transitionDistance;
+	int transitionSpeed =8;
 	
 	ObjectManager(Player p){
 		player = p;
@@ -46,13 +47,13 @@ public class ObjectManager implements ActionListener{
 	
 	public void transition() {
 		if(isTransitioning && transitionDistance>0) {
-			player.y +=8;
+			player.y +=transitionSpeed;
 			maxY = player.getY();
 			for (int k = 0; k< platforms.size();k++) {
 				Platform plat = platforms.get(k);
-				plat.y+=8;
+				plat.y+=transitionSpeed;
 			}
-			transitionDistance -=8;
+			transitionDistance -=transitionSpeed;
 		}
 		else if(transitionDistance <=0) {
 			isTransitioning = false;
@@ -120,14 +121,20 @@ public class ObjectManager implements ActionListener{
 			player.x = 0;
 		}
 		else if (player.x<0) {
-			player.x = FoodleHop.WIDTH;
+			player.x = 395
+					;
 		}
 		
 		else if (player.y<100&& isTransitioning == false) {
 			isTransitioning = true;
-			transitionDistance =250;
+			transitionDistance =200;
 			for(int o = 0; o<3; o++) {
 				platformSpawn();
+			}
+			
+			if(score >1000) {
+				transitionDistance = 600;
+				transitionSpeed = 10;
 			}
 		}
 		
@@ -160,14 +167,11 @@ public class ObjectManager implements ActionListener{
 			//System.out.println("no score");
 		}
 		
-		if(score >1000) {
-			transitionDistance = 400;
-			
-		}
+		
 	}
 	
 	public boolean isDead() {
-		if(player.getY()>800) {
+		if(player.getY()>795) {
 			playSound("screa,.wav");
 			platforms.clear();
 			if(score >highScore) {
